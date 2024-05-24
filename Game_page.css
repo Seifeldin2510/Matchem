@@ -1,4 +1,3 @@
-
 body
 {
     background-color: #577B8D;
@@ -102,7 +101,7 @@ img
 
 
 
-h1,h4,label
+h1,h3,label
 {
     margin: auto 50px 0px 50px;
     color: #240750;
@@ -116,6 +115,7 @@ button
     border: none;
     width: 100px;
     margin-top: 40px;
+    border-radius: 5px;
 }
 button:hover
 {
@@ -130,6 +130,7 @@ select
     width: 100px;
     height: 50px;
     margin-top: 40px;
+    border-radius: 5px;
 }
 
 #logo
@@ -157,6 +158,7 @@ select
     margin: auto;
     width: 400px;
     text-align: center;
+    border-radius: 10px;
 }
 a
 {

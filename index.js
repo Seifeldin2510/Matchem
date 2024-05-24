@@ -2,8 +2,9 @@ var score = 0;
 var moves = 0;
 var counter =0;
 var check = true;
-card1=null;
-card2=null;
+var my_Interval;
+var card1=null;
+var card2=null;
 Pirate = ["assets\\pirate\\1.png",'assets\\pirate\\1.png','assets\\pirate\\2.png','assets\\pirate\\2.png','assets\\pirate\\3.png','assets\\pirate\\3.png'
     ,'assets\\pirate\\4.png','assets\\pirate\\4.png','assets\\pirate\\5.png','assets\\pirate\\5.png','assets\\pirate\\6.png','assets\\pirate\\6.png'
     ,'assets\\pirate\\7.png','assets\\pirate\\7.png','assets\\pirate\\8.png','assets\\pirate\\8.png'
@@ -27,6 +28,7 @@ function startgame()
     var allCards = document.getElementsByClassName('card');
     if(button.className === "reset")
         {
+            clearInterval(my_Interval);
             check = false;
             document.getElementById("Lose").style.visibility = 'visible';
             board_game.style.visibility = "hidden";
@@ -66,15 +68,16 @@ function startgame()
         allCards[i].getElementsByClassName('back')[0].innerHTML= `<img src = ${imgGiven[random]} />`;
         imgGiven.splice(random,1);
     }
-    card1=null;
-    card2=null;
     score = 0;
     moves = 0;
     var scores = document.getElementById("Score");
     scores.textContent = `Score: ${score}`;
     var Move = document.getElementById("Moves");
     Move.textContent = `Moves: ${moves}/50`;
+    Move.style.color ="#240750";
     counter =0;
+    card1=null;
+    card2=null;
 }
 
 function flipCard(id)
@@ -99,7 +102,7 @@ function flipCard(id)
             Move.textContent = `Moves: ${moves}/50`;
             if(card2.getElementsByClassName("back")[0].firstChild.src == card1.getElementsByClassName("back")[0].firstChild.src)
                 {
-                    score +=5; 
+                    score +=15; 
                     var scores = document.getElementById("Score");
                     scores.textContent = `Score: ${score}`;
                     setTimeout("disapper()",1000);
@@ -121,14 +124,16 @@ function flipCard(id)
                 button.setAttribute('class','start');
                 document.getElementById("Win").style.visibility = 'visible';
                 check = true;
+                clearInterval(my_Interval);
             }
-        if(moves === 50)
-            {
-                startgame();
+        else if(moves === 50)
+            {   clearInterval(my_Interval);
+                setTimeout("startgame()",1001);
             }
         if(moves === 40)
             {
                 window.alert("Ten moves left");
+                my_Interval = setInterval("Alert()",500);
             }
         
 }
@@ -160,4 +165,18 @@ function lost()
         allCards[i].style.visibility = 'visible';
     }
     board_game.style.visibility = "visible";
+}
+
+
+function Alert()
+{
+    var Move = document.getElementById("Moves");
+    if(Move.style.color === 'red')
+        {
+            Move.style.color = 'white';
+        }
+        else
+        {
+            Move.style.color ='red';
+        }
 }
